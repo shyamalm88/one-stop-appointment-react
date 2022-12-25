@@ -1,24 +1,71 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ErrorPage from "./components/ErrorPage";
+import LoginContainer from "./containers/LoginContainer";
+import SignupContainer from "./containers/SignupContainer";
+import ProfileContainer from "./containers/ProfileContainer";
+import ForgotPasswordContainer from "./containers/ForgotPasswordContainer";
+import ProfileView from "./containers/ProfileView";
+import TimeTableContainer from "./containers/TimeTableContainer";
+import AppointmentsContainer from "./containers/AppointmentsContainer";
+import AboutContainer from "./containers/AboutContainer";
+import SecurityContainer from "./containers/SecurityContainer";
+import ContactContainer from "./containers/ContactContainer";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/login",
+    element: <LoginContainer />,
+  },
+  {
+    path: "/signup",
+    element: <SignupContainer />,
+  },
+  {
+    path: "/profile",
+    element: <ProfileContainer />,
+    children: [
+      {
+        path: "profileview",
+        element: <ProfileView />,
+      },
+      {
+        path: "about",
+        element: <AboutContainer />,
+      },
+      {
+        path: "contact",
+        element: <ContactContainer />,
+      },
+      {
+        path: "appointments",
+        element: <AppointmentsContainer />,
+      },
+      {
+        path: "security",
+        element: <SecurityContainer />,
+      },
+      {
+        path: "timetable",
+        element: <TimeTableContainer />,
+      },
+    ],
+  },
+  {
+    path: "/forgotpassword",
+    element: <ForgotPasswordContainer />,
+  },
+]);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RouterProvider router={router}>
+      <div className="App"></div>
+    </RouterProvider>
   );
 }
 
