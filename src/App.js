@@ -11,11 +11,13 @@ import AppointmentsContainer from "./containers/AppointmentsContainer";
 import AboutContainer from "./containers/AboutContainer";
 import SecurityContainer from "./containers/SecurityContainer";
 import ContactContainer from "./containers/ContactContainer";
+import OneStopContainer from "./containers/OneStopContainer";
 
 const router = createBrowserRouter([
   {
     path: "/",
     errorElement: <ErrorPage />,
+    element: <OneStopContainer />,
   },
   {
     path: "/login",
