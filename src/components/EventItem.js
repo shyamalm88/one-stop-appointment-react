@@ -21,6 +21,7 @@ const EventItem = ({ info }) => {
           whiteSpace: "nowrap",
           textOverflow: "ellipsis",
           overflow: "hidden",
+          height: "100%",
         }}
       >
         <p>
@@ -29,6 +30,15 @@ const EventItem = ({ info }) => {
             ({<Moment format="hh:mm a">{event.startStr}</Moment>} {"🠖"}
             {<Moment format="hh:mm a">{event.endStr}</Moment>})
           </strong>
+          Join This meeting by clicking on this link.
+          <a
+            href="http://google.com"
+            target="_blank"
+            class="joinLink"
+            rel="noopener noreferrer"
+          >
+            Google
+          </a>
         </p>
       </div>
       <Popover
