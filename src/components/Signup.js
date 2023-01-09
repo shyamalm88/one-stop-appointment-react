@@ -39,23 +39,42 @@ function Signup() {
     city: { value: "", error: "", required: true },
   });
 
-  const pincodeUpdate = (newInputValue, key) => {
-    setSignup((prevState) => {
-      return {
-        ...prevState,
-        [key]: { value: newInputValue?.Pincode, error: "" },
-        country: { value: newInputValue?.Country, error: "" },
-        state: { value: newInputValue?.State, error: "" },
-        city: { value: newInputValue?.Region, error: "" },
-      };
-    });
-  };
+  const pincodeUpdate = useCallback(
+    (newInputValue, key) => {
+      setSignup((prevState) => {
+        return {
+          ...prevState,
+          [key]: {
+            value: newInputValue?.Pincode,
+            error: "",
+            required: prevState[key].required,
+          },
+          country: {
+            value: newInputValue?.Country,
+            error: "",
+            required: prevState["country"].required,
+          },
+          state: {
+            value: newInputValue?.State,
+            error: "",
+            required: prevState["state"].required,
+          },
+          city: {
+            value: newInputValue?.Region,
+            error: "",
+            required: prevState["city"].required,
+          },
+        };
+      });
+    },
+    [signup]
+  );
 
   const handleAddressAutoEntry = async (value, key) => {
     setSignup((prevState) => {
       return {
         ...prevState,
-        [key]: { value, error: "" },
+        [key]: { value, error: "", required: prevState[key].required },
       };
     });
     if (value && value.length === 6) {
@@ -68,267 +87,289 @@ function Signup() {
       setPostOffices(formattedData);
     }
   };
-  const handleInputField = (value, key) => {
-    setSignup((prevState) => {
-      return {
-        ...prevState,
-        [key]: { required: prevState[key].required, value, error: "" },
-      };
-    });
-  };
+  const handleInputField = useCallback(
+    (value, key) => {
+      setSignup((prevState) => {
+        return {
+          ...prevState,
+          [key]: { required: prevState[key].required, value, error: "" },
+        };
+      });
+    },
+    [signup]
+  );
 
-  const handleError = useCallback((value, key) => {
-    if (key === "firstName") {
-      const regex = /^[a-zA-Z ]{2,30}$/;
-      if (!value.match(regex)) {
-        setSignup((prevState) => {
-          return {
-            ...prevState,
-            [key]: {
-              value,
-              error:
-                "Please provide a valid First Name and it should be at-least 2 characters long and within 30 characters",
-            },
-          };
-        });
+  const handleError = useCallback(
+    (value, key) => {
+      if (key === "firstName") {
+        const regex = /^[a-zA-Z ]{2,30}$/;
+        if (!value.match(regex)) {
+          setSignup((prevState) => {
+            return {
+              ...prevState,
+              [key]: {
+                required: prevState[key].required,
+                value,
+                error:
+                  "Please provide a valid First Name and it should be at-least 2 characters long and within 30 characters",
+              },
+            };
+          });
 
-        return false;
-      } else {
-        return true;
+          return false;
+        } else {
+          return true;
+        }
       }
-    }
-    if (key === "lastName") {
-      const regex = /^[a-zA-Z ]{2,30}$/;
-      if (!value.match(regex)) {
-        setSignup((prevState) => {
-          return {
-            ...prevState,
-            [key]: {
-              value,
-              error:
-                "Please provide a valid Last Name and it should be at-least 2 characters long and within 30 characters",
-            },
-          };
-        });
+      if (key === "lastName") {
+        const regex = /^[a-zA-Z ]{2,30}$/;
+        if (!value.match(regex)) {
+          setSignup((prevState) => {
+            return {
+              ...prevState,
+              [key]: {
+                required: prevState[key].required,
+                value,
+                error:
+                  "Please provide a valid Last Name and it should be at-least 2 characters long and within 30 characters",
+              },
+            };
+          });
 
-        return false;
-      } else {
-        return true;
+          return false;
+        } else {
+          return true;
+        }
       }
-    }
-    if (key === "phoneNo") {
-      const regex = /^([+]\d{2})?\d{10}$/;
-      if (!value.match(regex)) {
-        setSignup((prevState) => {
-          return {
-            ...prevState,
-            [key]: {
-              value,
-              error: "Please provide a valid Phone No.",
-            },
-          };
-        });
+      if (key === "phoneNo") {
+        const regex = /^([+]\d{2})?\d{10}$/;
+        if (!value.match(regex)) {
+          setSignup((prevState) => {
+            return {
+              ...prevState,
+              [key]: {
+                required: prevState[key].required,
+                value,
+                error: "Please provide a valid Phone No.",
+              },
+            };
+          });
 
-        return false;
-      } else {
-        return true;
+          return false;
+        } else {
+          return true;
+        }
       }
-    }
-    if (key === "email") {
-      const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-      if (!value.match(regex)) {
-        setSignup((prevState) => {
-          return {
-            ...prevState,
-            [key]: {
-              value,
-              error: "Please provide a valid Email.",
-            },
-          };
-        });
+      if (key === "email") {
+        const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        if (!value.match(regex)) {
+          setSignup((prevState) => {
+            return {
+              ...prevState,
+              [key]: {
+                required: prevState[key].required,
+                value,
+                error: "Please provide a valid Email.",
+              },
+            };
+          });
 
-        return false;
-      } else {
-        return true;
+          return false;
+        } else {
+          return true;
+        }
       }
-    }
-    if (key === "password") {
-      const regex =
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
-      if (!value.match(regex)) {
-        setSignup((prevState) => {
-          return {
-            ...prevState,
-            [key]: {
-              value,
-              error:
-                "Please provide a valid Password. Password Must be Minimum eight and maximum 16 characters, at least one uppercase letter, one lowercase letter, one number and one special character ",
-            },
-          };
-        });
+      if (key === "password") {
+        const regex =
+          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,16}$/;
+        if (!value.match(regex)) {
+          setSignup((prevState) => {
+            return {
+              ...prevState,
+              [key]: {
+                required: prevState[key].required,
+                value,
+                error:
+                  "Please provide a valid Password. Password Must be Minimum eight and maximum 16 characters, at least one uppercase letter, one lowercase letter, one number and one special character ",
+              },
+            };
+          });
 
-        return false;
-      } else {
-        return true;
+          return false;
+        } else {
+          return true;
+        }
       }
-    }
-    if (key === "reTypePassword") {
-      if (value != signup.password.value || !signup.password.value) {
-        setSignup((prevState) => {
-          return {
-            ...prevState,
-            [key]: {
-              value,
-              error: "Password and Retype password must match ",
-            },
-          };
-        });
+      if (key === "reTypePassword") {
+        if (value != signup.password.value || !signup.password.value) {
+          setSignup((prevState) => {
+            return {
+              ...prevState,
+              [key]: {
+                required: prevState[key].required,
+                value,
+                error: "Password and Retype password must match ",
+              },
+            };
+          });
 
-        return false;
-      } else {
-        return true;
+          return false;
+        } else {
+          return true;
+        }
       }
-    }
-    if (key === "gender") {
-      if (value.length === 0) {
-        setSignup((prevState) => {
-          return {
-            ...prevState,
-            [key]: {
-              value,
-              error: "Please select a gender",
-            },
-          };
-        });
+      if (key === "gender") {
+        if (value.length === 0) {
+          setSignup((prevState) => {
+            return {
+              ...prevState,
+              [key]: {
+                required: prevState[key].required,
+                value,
+                error: "Please select a gender",
+              },
+            };
+          });
 
-        return false;
-      } else {
-        return true;
+          return false;
+        } else {
+          return true;
+        }
       }
-    }
-    if (key === "experience") {
-      const regex = /^([1-9]|[1-9][0-9]){1,2}$/;
-      if (value && !value.match(regex)) {
-        setSignup((prevState) => {
-          return {
-            ...prevState,
-            [key]: {
-              value,
-              error: "Please provide your experience in years",
-            },
-          };
-        });
+      if (key === "experience") {
+        const regex = /^([1-9]|[1-9][0-9]){1,2}$/;
+        if (value && !value.match(regex)) {
+          setSignup((prevState) => {
+            return {
+              ...prevState,
+              [key]: {
+                required: prevState[key].required,
+                value,
+                error: "Please provide your experience in years",
+              },
+            };
+          });
 
-        return false;
-      } else {
-        return true;
+          return false;
+        } else {
+          return true;
+        }
       }
-    }
-    if (key === "addressLine1") {
-      const regex = /^[#.0-9a-zA-Z\s,-]+$/;
-      if (!value.match(regex)) {
-        setSignup((prevState) => {
-          return {
-            ...prevState,
-            [key]: {
-              value,
-              error: "Please provide your Address Line 1",
-            },
-          };
-        });
+      if (key === "addressLine1") {
+        const regex = /^[#.0-9a-zA-Z\s,-]+$/;
+        if (!value.match(regex)) {
+          setSignup((prevState) => {
+            return {
+              ...prevState,
+              [key]: {
+                required: prevState[key].required,
+                value,
+                error: "Please provide your Address Line 1",
+              },
+            };
+          });
 
-        return false;
-      } else {
-        return true;
+          return false;
+        } else {
+          return true;
+        }
       }
-    }
-    if (key === "addressLine2") {
-      const regex = /^[#.0-9a-zA-Z\s,-]+$/;
-      if (value && !value.match(regex)) {
-        setSignup((prevState) => {
-          return {
-            ...prevState,
-            [key]: {
-              value,
-              error: "Please provide valid Address Line 2",
-            },
-          };
-        });
+      if (key === "addressLine2") {
+        const regex = /^[#.0-9a-zA-Z\s,-]+$/;
+        if (value && !value.match(regex)) {
+          setSignup((prevState) => {
+            return {
+              ...prevState,
+              [key]: {
+                required: prevState[key].required,
+                value,
+                error: "Please provide valid Address Line 2",
+              },
+            };
+          });
 
-        return false;
-      } else {
-        return true;
+          return false;
+        } else {
+          return true;
+        }
       }
-    }
-    if (key === "pinCode") {
-      if (!value || value.length >= 6) {
-        setSignup((prevState) => {
-          return {
-            ...prevState,
-            [key]: {
-              value,
-              error: "Please provide valid Pincode",
-            },
-          };
-        });
+      if (key === "pinCode") {
+        console.log("pincode", value);
+        if (!value || (value && value.length < 6)) {
+          console.log("pincode", value);
+          setSignup((prevState) => {
+            return {
+              ...prevState,
+              [key]: {
+                required: prevState[key].required,
+                value,
+                error: "Please provide valid Pincode",
+              },
+            };
+          });
 
-        return false;
-      } else {
-        return true;
+          return false;
+        } else {
+          return true;
+        }
       }
-    }
-    if (key === "city") {
-      if (!value) {
-        setSignup((prevState) => {
-          return {
-            ...prevState,
-            [key]: {
-              value,
-              error: "Please provide valid City",
-            },
-          };
-        });
+      if (key === "city") {
+        if (!value) {
+          setSignup((prevState) => {
+            return {
+              ...prevState,
+              [key]: {
+                required: prevState[key].required,
+                value,
+                error: "Please provide valid City",
+              },
+            };
+          });
 
-        return false;
-      } else {
-        return true;
+          return false;
+        } else {
+          return true;
+        }
       }
-    }
-    if (key === "state") {
-      if (!value) {
-        setSignup((prevState) => {
-          return {
-            ...prevState,
-            [key]: {
-              value,
-              error: "Please provide valid State",
-            },
-          };
-        });
+      if (key === "state") {
+        if (!value) {
+          setSignup((prevState) => {
+            return {
+              ...prevState,
+              [key]: {
+                required: prevState[key].required,
+                value,
+                error: "Please provide valid State",
+              },
+            };
+          });
 
-        return false;
-      } else {
-        return true;
+          return false;
+        } else {
+          return true;
+        }
       }
-    }
-    if (key === "country") {
-      if (!value) {
-        setSignup((prevState) => {
-          return {
-            ...prevState,
-            [key]: {
-              value,
-              error: "Please provide valid Country",
-            },
-          };
-        });
+      if (key === "country") {
+        if (!value) {
+          setSignup((prevState) => {
+            return {
+              ...prevState,
+              [key]: {
+                required: prevState[key].required,
+                value,
+                error: "Please provide valid Country",
+              },
+            };
+          });
 
-        return false;
-      } else {
-        return true;
+          return false;
+        } else {
+          return true;
+        }
       }
-    }
-  });
+    },
+    [signup]
+  );
 
   const validateAndSubmit = (e) => {
     e.preventDefault();
