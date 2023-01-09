@@ -44,7 +44,7 @@ const router = createBrowserRouter([
         element: <ContactContainer />,
       },
       {
-        path: "appointments",
+        path: "schedule-appointment",
         element: <AppointmentsContainer />,
       },
       {

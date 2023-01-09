@@ -68,6 +68,62 @@ export const Timetable = () => {
       backgroundColor: "green",
       borderColor: "green",
     },
+    {
+      title: "Meeting Meeting Meeting Meeting Meeting",
+      start: "2022-12-25T01:30:00+05:30",
+      end: "2022-12-25T02:00:00+05:30",
+      backgroundColor: "orange",
+      borderColor: "orange",
+    },
+    {
+      title: "Birthday Party",
+      start: "2022-12-25T05:00:00+05:30",
+      end: "2022-12-25T05:30:00+05:30",
+      backgroundColor: "green",
+      borderColor: "green",
+    },
+    {
+      title: "Meeting Meeting Meeting Meeting Meeting",
+      start: "2022-12-25T01:30:00+05:30",
+      end: "2022-12-25T02:00:00+05:30",
+      backgroundColor: "orange",
+      borderColor: "orange",
+    },
+    {
+      title: "Birthday Party",
+      start: "2022-12-25T05:00:00+05:30",
+      end: "2022-12-25T05:30:00+05:30",
+      backgroundColor: "green",
+      borderColor: "green",
+    },
+    {
+      title: "Meeting Meeting Meeting Meeting Meeting",
+      start: "2022-12-25T01:30:00+05:30",
+      end: "2022-12-25T02:00:00+05:30",
+      backgroundColor: "orange",
+      borderColor: "orange",
+    },
+    {
+      title: "Birthday Party",
+      start: "2022-12-25T05:00:00+05:30",
+      end: "2022-12-25T05:30:00+05:30",
+      backgroundColor: "green",
+      borderColor: "green",
+    },
+    {
+      title: "Meeting Meeting Meeting Meeting Meeting",
+      start: "2022-12-25T01:30:00+05:30",
+      end: "2022-12-25T02:00:00+05:30",
+      backgroundColor: "orange",
+      borderColor: "orange",
+    },
+    {
+      title: "Birthday Party",
+      start: "2022-12-25T05:00:00+05:30",
+      end: "2022-12-25T05:30:00+05:30",
+      backgroundColor: "green",
+      borderColor: "green",
+    },
   ]);
 
   const handleEventNameChange = (event) => {

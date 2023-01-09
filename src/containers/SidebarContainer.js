@@ -38,7 +38,7 @@ function SidebarContainer() {
 
       <hr className="sidebar-divider" />
 
-      <div className="sidebar-heading">Personal Details</div>
+      <div className="sidebar-heading">Personal</div>
 
       <li className="nav-item">
         <Link to="/profile/about" className="nav-link collapsed">
@@ -79,7 +79,7 @@ function SidebarContainer() {
 
       <hr className="sidebar-divider" />
 
-      <div className="sidebar-heading">Appointment Details</div>
+      <div className="sidebar-heading">Appointment</div>
 
       <li className="nav-item">
         <Link to="/profile/timetable" className="nav-link collapsed">
@@ -89,9 +89,9 @@ function SidebarContainer() {
       </li>
 
       <li className="nav-item">
-        <Link to="/profile/appointments" className="nav-link collapsed">
+        <Link to="/profile/schedule-appointment" className="nav-link collapsed">
           <i className="fas fa-fw fa-stopwatch"></i>
-          <span>Upcoming Appointments</span>
+          <span>Schedule Appointment</span>
         </Link>
       </li>
 
