@@ -11,7 +11,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { PIN_CODE_API } from "../services/api/Api";
 
 function Signup() {
@@ -77,7 +77,7 @@ function Signup() {
     });
   };
 
-  const handleError = (value, key) => {
+  const handleError = useCallback((value, key) => {
     if (key === "firstName") {
       const regex = /^[a-zA-Z ]{2,30}$/;
       if (!value.match(regex)) {
@@ -328,7 +328,7 @@ function Signup() {
         return true;
       }
     }
-  };
+  });
 
   const validateAndSubmit = (e) => {
     e.preventDefault();
