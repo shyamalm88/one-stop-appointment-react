@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import React, { useCallback, useEffect, useState } from "react";
-import { PIN_CODE_API } from "../services/api/Api";
+import { API, PIN_CODE_API } from "../services/api/Api";
 
 function Signup() {
   const [formValid, setFormValid] = useState(null);
@@ -383,11 +383,23 @@ function Signup() {
         return false;
       }
     });
-    return true;
+    extractValue(signup);
+    API.post("consultants/register", signup).then((res) => {
+      console.log(res);
+    });
+  };
+
+  const extractValue = (obj) => {
+    const allFields = Object.keys(obj);
+    let data = {};
+    allFields.forEach((x) => {
+      data[x] = obj[x].value;
+    });
+    console.log(data);
   };
 
   useEffect(() => {
-    console.log("signup", signup);
+    // console.log("signup", signup);
   }, [signup]);
 
   return (
